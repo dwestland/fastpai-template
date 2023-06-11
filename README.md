@@ -86,7 +86,7 @@ Add a vercel.json file to the root of the project:
 
 Include requirements.txt file in the root of the project
 ```
-pip freeze --local > requirements .txt
+pip freeze --local > requirements.txt
 ```
 
 
