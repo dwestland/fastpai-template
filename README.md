@@ -4,12 +4,9 @@ A FastAPI template with local development environment
 
 ### Uses the following libraries:
 [FastAPI](https://fastapi.tiangolo.com/)<br>
-[Mangum](https://pypi.org/project/mangum/)<br>
-[Lambda](https://aws.amazon.com/lambda/)
-<br>
+[uvicorn](https://www.uvicorn.org/)
 
 ## Setup dev environment:
-<br>
 
 ### Setup virtualenv environment:
 ```
@@ -23,7 +20,7 @@ source env/bin/activate
 
 ### Inatall the following libraries:
 ```
-pip install "fastapi[all]" uvicorn pip install mangum
+pip install "fastapi[all]" uvicorn
 ```
 
 ### If you would like to shut down the environment:
@@ -32,30 +29,28 @@ deactivate
 ```
 
 ---
-<br>
 
 ## Run local dev environment
-<br>
 
 ### If the enviromment is not running, activate environment:
 ```
 source env/bin/activate
 ```
 
-### Run application
+## Run application
 
 ```
 uvicorn app.main:app --host 0.0.0.0 --port 8080 --reload
 ```
 
-### App access:
+### API access:
 
 [http://0.0.0.0:8080/](http://0.0.0.0:8080/)
-<br><br>
+
 ### Swager accees:
 
 [http://0.0.0.0:8080//\docs](http://0.0.0.0:8080/docs)
-<br><br>
+
 ### Stop local server
 ```
 ctrl + c
@@ -67,3 +62,35 @@ deactivate
 ```
 
 ---
+
+## Vercel deployment
+
+Add a vercel.json file to the root of the project:
+
+```
+{
+  "builds": [
+    {
+      "src": "app/main.py",
+      "use": "@vercel/python"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "app/main.py"
+    }
+  ]
+}
+```
+
+Include requirements.txt file in the root of the project
+```
+pip freeze --local > requirements .txt
+```
+
+
+Add to Vercel environment variables:
+```
+PORT 8000
+```
